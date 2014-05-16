@@ -1140,12 +1140,9 @@ class adLDAP {
             $username = $this->strguid2hex($username);
             $filter="objectguid=".$username;
         }
-        else if (strstr($username, "@")) {
-             $filter="userPrincipalName=".$username;
-        }
-        else {
-             $filter="samaccountname=".$username;
-        }
+
+        $filter="userPrincipalName=*".$username."*";
+
         $filter = "(&(objectCategory=person)({$filter}))";
         if ($fields===NULL){ $fields=array("samaccountname","mail","memberof","department","displayname","telephonenumber","primarygroupid","objectsid"); }
         if (!in_array("objectsid",$fields)){
